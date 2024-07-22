@@ -4,5 +4,5 @@ class Settings:
         self.screen_length = 800
         self.bg_color = (94, 50, 50)
         
-        self.player_speed = 0.5
+        self.player_speed = 0.4
         self.speed = 0.2
