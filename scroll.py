@@ -1,7 +1,7 @@
 import pygame
 import sys
 from settings import Settings
-from things import Player, Thing
+from things import Player, Thing, Bg
 class Scroll:
     def __init__(self):
         pygame.init()
@@ -12,10 +12,12 @@ class Scroll:
         pygame.display.set_caption("Scrolling test")
         self.player = Player(self)
         self.thing = Thing(self)
+        self.bg = Bg(self)
 
     def run_game(self):
         while True:
             self._check_events()
+            self.bg.update()
             self.thing.update()
             self.player.update()
             self.update_screen()
@@ -35,32 +37,41 @@ class Scroll:
         if event.key == pygame.K_RIGHT:
             self.thing.moving_right = True
             self.player.moving_right = True
+            self.bg.moving_right = True
         elif event.key == pygame.K_LEFT:
             self.thing.moving_left = True
             self.player.moving_left = True
+            self.bg.moving_left = True
         elif event.key == pygame.K_DOWN:
             self.thing.moving_down = True
             self.player.moving_down = True
+            self.bg.moving_down = True
         elif event.key == pygame.K_UP:
             self.thing.moving_up = True
             self.player.moving_up = True
+            self.bg.moving_up = True
     
     def check_keyup(self, event):
         if event.key == pygame.K_RIGHT:
             self.thing.moving_right = False
             self.player.moving_right = False
+            self.bg.moving_right = False
         elif event.key == pygame.K_LEFT:
             self.thing.moving_left = False
             self.player.moving_left = False
+            self.bg.moving_left = False
         elif event.key == pygame.K_UP:
             self.thing.moving_up = False
             self.player.moving_up = False
+            self.bg.moving_up = False
         elif event.key == pygame.K_DOWN:
             self.thing.moving_down = False
             self.player.moving_down = False
+            self.bg.moving_down = False
     
     def update_screen(self):
-        self.screen.fill(self.settings.bg_color)
+        self.screen.blit(self.settings.bg, (-500,-1500))
+        self.bg.blitme()
         self.player.blitme()
         self.thing.blitme()
         pygame.display.flip()
